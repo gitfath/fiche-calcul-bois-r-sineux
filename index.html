@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcul Structures Bois - Fiches techniques</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            scroll-behavior: smooth;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--dark-color) 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1503386435952-d7918b99d4c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .main-content {
+            padding: 4rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+        
+        .filter-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            background-color: #f8f9fa;
+        }
+        
+        .woods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .wood-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .wood-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wood-card-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        .wood-card-body {
+            padding: 1.5rem;
+        }
+        
+        .wood-property {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .wood-downloads {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .download-btn.compression {
+            background: var(--accent-color);
+        }
+        
+        .download-btn.compression:hover {
+            background: #c0392b;
+        }
+        
+        .comparison-section {
+            background: var(--light-color);
+            padding: 4rem 0;
+            margin-top: 2rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .woods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-options {
+                flex-direction: column;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-tree"></i>
+                <h1>Calcul Structures Bois</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Accueil</a></li>
+                    <li><a href="#woods">Types de Bois</a></li>
+                    <li><a href="#comparison">Comparaison</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Fiches de calcul pour structures bois</h2>
+            <p>Resources techniques pour le calcul des structures en bois résineux soumises à des efforts de traction et compression axiales</p>
+        </div>
+    </section>
+
+    <section id="woods" class="main-content">
+        <div class="container">
+            <h2 class="section-title">Fiches de Calcul par Type de Bois</h2>
+            
+            <div class="filter-section">
+                <div class="filter-options">
+                    <div class="filter-group">
+                        <label for="woodType">Filtrer par type de bois:</label>
+                        <select id="woodType" class="filter-select">
+                            <option value="all">Tous les types de bois</option>
+                            <option value="C14">C14</option>
+                            <option value="C16">C16</option>
+                            <option value="C18">C18</option>
+                            <option value="C22">C22</option>
+                            <option value="C24">C24</option>
+                            <option value="C27">C27</option>
+                            <option value="C30">C30</option>
+                            <option value="C35">C35</option>
+                            <option value="C40">C40</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="woods-grid">
+                <!-- C14 -->
+                <div class="wood-card" data-wood-type="C14">
+                    <div class="wood-card-header">Bois C14</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>14 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>7 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>290 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C14_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C14_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C16 -->
+                <div class="wood-card" data-wood-type="C16">
+                    <div class="wood-card-header">Bois C16</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>16 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>8 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>310 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C16_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C16_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C18 -->
+                <div class="wood-card" data-wood-type="C18">
+                    <div class="wood-card-header">Bois C18</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>18 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>9 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>320 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C18_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C18_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C22 -->
+                <div class="wood-card" data-wood-type="C22">
+                    <div class="wood-card-header">Bois C22</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>22 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>10 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>340 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C22_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C22_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C24 -->
+                <div class="wood-card" data-wood-type="C24">
+                    <div class="wood-card-header">Bois C24</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>24 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>11 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>350 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C24_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C24_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C27 -->
+                <div class="wood-card" data-wood-type="C27">
+                    <div class="wood-card-header">Bois C27</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>27 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>11 500 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>370 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C27_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C27_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C30 -->
+                <div class="wood-card" data-wood-type="C30">
+                    <div class="wood-card-header">Bois C30</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>30 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>12 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>380 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C30_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C30_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C35 -->
+                <div class="wood-card" data-wood-type="C35">
+                    <div class="wood-card-header">Bois C35</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>35 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>13 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>400 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C35_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C35_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- C40 -->
+                <div class="wood-card" data-wood-type="C40">
+                    <div class="wood-card-header">Bois C40</div>
+                    <div class="wood-card-body">
+                        <div class="wood-property">
+                            <span>Résistance caractéristique:</span>
+                            <span>40 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Module d'élasticité:</span>
+                            <span>14 000 MPa</span>
+                        </div>
+                        <div class="wood-property">
+                            <span>Densité moyenne:</span>
+                            <span>420 kg/m³</span>
+                        </div>
+                        <div class="wood-downloads">
+                            <a href="pdf/traction/C40_traction.pdf" class="download-btn" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Traction
+                            </a>
+                            <a href="pdf/compression/C40_compression.pdf" class="download-btn compression" target="_blank">
+                                <i class="fas fa-file-pdf"></i> Fiche Compression
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comparison" class="comparison-section">
+        <div class="container">
+            <h2 class="section-title">Comparaison des Essences de Bois</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Essence</th>
+                        <th>Résistance (MPa)</th>
+                        <th>Module d'élasticité (MPa)</th>
+                        <th>Densité (kg/m³)</th>
+                        <th>Traction</th>
+                        <th>Compression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>C14</td>
+                        <td>14</td>
+                        <td>7 000</td>
+                        <td>290</td>
+                        <td><a href="pdf/traction/C14_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C14_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C16</td>
+                        <td>16</td>
+                        <td>8 000</td>
+                        <td>310</td>
+                        <td><a href="pdf/traction/C16_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C16_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C18</td>
+                        <td>18</td>
+                        <td>9 000</td>
+                        <td>320</td>
+                        <td><a href="pdf/traction/C18_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C18_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C22</td>
+                        <td>22</td>
+                        <td>10 000</td>
+                        <td>340</td>
+                        <td><a href="pdf/traction/C22_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C22_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C24</td>
+                        <td>24</td>
+                        <td>11 000</td>
+                        <td>350</td>
+                        <td><a href="pdf/traction/C24_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C24_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C27</td>
+                        <td>27</td>
+                        <td>11 500</td>
+                        <td>370</td>
+                        <td><a href="pdf/traction/C27_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C27_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C30</td>
+                        <td>30</td>
+                        <td>12 000</td>
+                        <td>380</td>
+                        <td><a href="pdf/traction/C30_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C30_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C35</td>
+                        <td>35</td>
+                        <td>13 000</td>
+                        <td>400</td>
+                        <td><a href="pdf/traction/C35_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C35_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td>C40</td>
+                        <td>40</td>
+                        <td>14 000</td>
+                        <td>420</td>
+                        <td><a href="pdf/traction/C40_traction.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                        <td><a href="pdf/compression/C40_compression.pdf" target="_blank"><i class="fas fa-download"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="contact" class="main-content">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Pour toute question concernant les fiches de calcul, n'hésitez pas à nous contacter.</p>
+            <div style="text-align: center;">
+                <a href="mailto:contact@calculbois.com" class="download-btn">
+                    <i class="fas fa-envelope"></i> Nous envoyer un email
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#home">Accueil</a>
+                <a href="#woods">Types de Bois</a>
+                <a href="#comparison">Comparaison</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2023 Calcul Structures Bois - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <script>
+        // Filtrage des types de bois
+        document.addEventListener('DOMContentLoaded', function() {
+            const woodTypeFilter = document.getElementById('woodType');
+            const woodCards = document.querySelectorAll('.wood-card');
+            
+            function filterWoods() {
+                const selectedWoodType = woodTypeFilter.value;
+                
+                woodCards.forEach(card => {
+                    const woodType = card.getAttribute('data-wood-type');
+                    
+                    if (selectedWoodType === 'all' || woodType === selectedWoodType) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+            
+            woodTypeFilter.addEventListener('change', filterWoods);
+            
+            // Navigation smooth scroll
+            document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Mettre à jour la classe active
+                        if (this.parentElement.parentElement.tagName === 'NAV') {
+                            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                            this.classList.add('active');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
